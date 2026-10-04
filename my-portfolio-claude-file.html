@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wisdom Adade-Abrefah — UX Designer & Content Strategist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — laraekdesign.com exact theme
+       Deep charcoal bg · White text · Lime green accent
+    ============================================ */
+    :root {
+      --bg:          #0D0D0D;   /* main background — near black */
+      --bg-card:     #161616;   /* card background */
+      --bg-card-hover: #1C1C1C; /* card hover */
+      --bg-tag:      #232323;   /* tag pill background */
+      --bg-nav:      rgba(13,13,13,0.92);
+
+      --white:       #FFFFFF;
+      --white-soft:  rgba(255,255,255,0.75);
+      --white-muted: rgba(255,255,255,0.35);
+      --white-rule:  rgba(255,255,255,0.07);
+      --white-rule-mid: rgba(255,255,255,0.12);
+
+      /* Lime / neon green — Larae's signature accent */
+      --lime:        #B8FF57;   /* primary lime green */
+      --lime-dark:   #8DD430;   /* deeper lime for hover */
+      --lime-dim:    rgba(184,255,87,0.12); /* subtle tint bg */
+
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --max-w:       1160px;
+      --gutter:      clamp(20px, 5vw, 72px);
+      --section-gap: clamp(72px, 10vw, 140px);
+      --radius:      12px;
+      --radius-sm:   8px;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { color: inherit; text-decoration: none; }
+
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* ============================================
+       TYPE SCALE
+    ============================================ */
+    .t-hero {
+      font-size: clamp(36px, 6vw, 80px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+
+    .t-hero em {
+      font-style: normal;
+      color: var(--lime);
+    }
+
+    .t-display {
+      font-size: clamp(28px, 3.5vw, 52px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .t-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+    }
+
+    /* ============================================
+       NAV — matches Larae: minimal, dark, top
+    ============================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--gutter);
+      background: var(--bg-nav);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--white-rule);
+    }
+
+    .nav-logo {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-right a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--white-soft);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+
+    .nav-right a:hover { color: var(--white); }
+
+    .nav-arrow {
+      font-size: 10px;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) { .nav-right { gap: 16px; } }
+
+    /* ============================================
+       HERO — Larae style: label row + big tagline
+    ============================================ */
+    #hero {
+      min-height: 100svh;
+      padding-top: 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-labels {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 36px var(--gutter) 0;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-label-pill {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--white-soft);
+      background: var(--bg-tag);
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--white-rule-mid);
+    }
+
+    .hero-tagline {
+      padding: var(--gutter);
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-foot {
+      border-top: 1px solid var(--white-rule);
+      padding: 24px var(--gutter);
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: var(--white-muted);
+      max-width: 50ch;
+      line-height: 1.65;
+    }
+
+    .hero-stats { display: flex; gap: 40px; }
+
+    .stat-num {
+      display: block;
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--lime);
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 11px;
+      color: var(--white-muted);
+      margin-top: 4px;
+    }
+
+    /* ============================================
+       SECTION SHELL
+    ============================================ */
+    section { padding: var(--section-gap) 0; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: clamp(28px, 4vw, 56px);
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--white-rule);
+    }
+
+    .section-num {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--white-muted);
+    }
+
+    /* ============================================
+       ABOUT
+    ============================================ */
+    #about { background: var(--bg); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: clamp(32px, 6vw, 88px);
+      align-items: start;
+    }
+
+    /* ✏️ Replace .photo-box with <img src="your-photo.jpg" alt="Wisdom" style="border-radius:12px;"> */
+    .photo-box {
+      aspect-ratio: 3/4;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      border: 1px solid var(--white-rule);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .photo-box .note {
+      font-size: 11px;
+      color: var(--white-muted);
+      text-align: center;
+      padding: 0 16px;
+      line-height: 1.6;
+    }
+
+    .about-lead {
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 300;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin: 14px 0 22px;
+      max-width: 54ch;
+    }
+
+    .about-body p {
+      font-size: 15px;
+      color: var(--white-soft);
+      max-width: 58ch;
+      line-height: 1.75;
+    }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+
+    .pill {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 5px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--white-rule-mid);
+      color: var(--white-soft);
+      background: transparent;
+    }
+
+    .pill--lime {
+      background: var(--lime-dim);
+      color: var(--lime);
+      border-color: rgba(184,255,87,0.2);
+      font-weight: 500;
+    }
+
+    @media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================
+       WORK — Larae: card grid, image top, meta below
+    ============================================ */
+    #work {}
+
+    /* 2-col grid like Larae, full case studies below */
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 700px) { .work-grid { grid-template-columns: 1fr; } }
+
+    .work-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--white-rule);
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .work-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--white-rule-mid);
+    }
+
+    .work-card-image {
+      aspect-ratio: 16/10;
+      background: var(--bg-tag);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ✏️ Replace .work-card-image content with <img> of your project screenshot */
+    .work-card-image .img-placeholder {
+      font-size: 11px;
+      color: var(--white-muted);
+      text-align: center;
+      padding: 16px;
+      line-height: 1.6;
+    }
+
+    .work-card-image .coming-soon {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--bg);
+      color: var(--white-soft);
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--white-rule-mid);
+    }
+
+    .work-card-body { padding: 20px 22px 24px; }
+
+    .work-card-meta {
+      font-size: 12px;
+      color: var(--white-muted);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .work-card-meta .dot { opacity: 0.3; }
+
+    .work-card-title {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .work-card-title em {
+      font-style: normal;
+      color: var(--lime);
+    }
+
+    .work-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .work-card-tag {
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--white-rule-mid);
+      color: var(--white-muted);
+    }
+
+    /* Full case study expansion */
+    .case-divider {
+      border: none;
+      border-top: 1px solid var(--white-rule);
+      margin: 48px 0;
+    }
+
+    .case-study {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: clamp(24px, 4vw, 64px);
+      align-items: start;
+      padding: 48px 0;
+      border-top: 1px solid var(--white-rule);
+    }
+
+    .case-study:last-child { border-bottom: 1px solid var(--white-rule); }
+
+    .case-meta { position: sticky; top: 72px; }
+
+    .case-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: var(--lime-dim);
+      color: var(--lime);
+      border: 1px solid rgba(184,255,87,0.2);
+      margin-bottom: 14px;
+    }
+
+    .case-title-meta { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+    .case-org        { font-size: 12px; color: var(--white-muted); }
+    .case-period     { font-size: 11px; color: var(--white-muted); margin-top: 2px; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 14px; }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      border: 1px solid var(--white-rule-mid);
+      color: var(--white-muted);
+    }
+
+    .case-body h3 {
+      font-size: clamp(20px, 2.4vw, 30px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      color: var(--white);
+    }
+
+    .case-body h4 {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+      margin: 28px 0 10px;
+    }
+
+    .case-body p {
+      font-size: 15px;
+      color: var(--white-soft);
+      line-height: 1.75;
+      max-width: 60ch;
+    }
+
+    /* Impact row */
+    .impact-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 22px 0;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--white-rule);
+      overflow: hidden;
+    }
+
+    .impact-stat {
+      padding: 20px 24px;
+      border-right: 1px solid var(--white-rule);
+      flex: 1;
+      min-width: 110px;
+    }
+
+    .impact-stat:last-child { border-right: none; }
+
+    .impact-stat .num {
+      display: block;
+      font-size: 30px;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--lime);
+    }
+
+    .impact-stat .desc {
+      display: block;
+      font-size: 12px;
+      color: var(--white-muted);
+      margin-top: 5px;
+    }
+
+    /* Mockup placeholder */
+    .mockup-frame {
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--white-rule);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0 6px;
+    }
+
+    .mockup-frame .placeholder-text {
+      font-size: 12px;
+      color: var(--white-muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .mockup-label {
+      font-size: 11px;
+      color: var(--white-muted);
+      margin-bottom: 4px;
+    }
+
+    /* Flow strip */
+    .flow-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--bg-tag) transparent;
+      margin: 18px 0 6px;
+    }
+
+    .flow-screen {
+      flex: 0 0 140px;
+      aspect-ratio: 9/16;
+      background: var(--bg-card);
+      border: 1px solid var(--white-rule);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 10px;
+      color: var(--white-muted);
+      text-align: center;
+      padding: 8px;
+    }
+
+    /* Annotation */
+    .annotation {
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      border-left: 2px solid var(--lime);
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+
+    .annotation strong {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--lime);
+    }
+
+    .annotation p { font-size: 14px; color: var(--white-soft); }
+
+    @media (max-width: 800px) {
+      .case-study { grid-template-columns: 1fr; padding: 36px 0; }
+      .case-meta  { position: static; }
+    }
+
+    /* ============================================
+       SKILLS
+    ============================================ */
+    #skills { background: var(--bg-card); }
+
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: clamp(32px, 6vw, 80px);
+      align-items: start;
+    }
+
+    .skills-intro h2 {
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .skills-intro p { font-size: 14px; color: var(--white-soft); max-width: 34ch; }
+
+    .skills-groups { display: flex; flex-direction: column; gap: 26px; }
+
+    .skill-group-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white-muted);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--white-rule);
+      margin-bottom: 12px;
+    }
+
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .skill-chip {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--white-rule-mid);
+      color: var(--white-soft);
+      background: transparent;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      cursor: default;
+    }
+
+    .skill-chip:hover {
+      border-color: rgba(184,255,87,0.4);
+      color: var(--lime);
+      background: var(--lime-dim);
+    }
+
+    .skill-chip--featured {
+      border-color: rgba(184,255,87,0.3);
+      color: var(--lime);
+      background: var(--lime-dim);
+      font-weight: 500;
+    }
+
+    @media (max-width: 800px) { .skills-layout { grid-template-columns: 1fr; } }
+
+    /* ============================================
+       TIMELINE
+    ============================================ */
+    #timeline {}
+
+    .timeline-list {
+      margin-top: 48px;
+      position: relative;
+    }
+
+    .timeline-list::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--white-rule-mid);
+    }
+
+    .timeline-item {
+      padding: 0 0 44px 36px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: 7px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--lime);
+    }
+
+    .timeline-period  { font-size: 11px; color: var(--white-muted); letter-spacing: 0.04em; margin-bottom: 4px; }
+    .timeline-role    { font-size: 17px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 2px; color: var(--white); }
+    .timeline-company { font-size: 13px; color: var(--lime); font-weight: 400; margin-bottom: 10px; }
+
+    .timeline-points {
+      list-style: none;
+      font-size: 14px;
+      color: var(--white-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .timeline-points li::before { content: '— '; color: var(--white-muted); }
+
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--white-rule);
+    }
+
+    .edu-degree { font-size: 15px; font-weight: 400; color: var(--white); }
+    .edu-school { font-size: 12px; color: var(--white-muted); margin-top: 2px; }
+    .edu-year   { font-size: 12px; color: var(--white-muted); }
+
+    /* ============================================
+       CONTACT — Larae: dark footer with link list
+    ============================================ */
+    #contact {
+      background: var(--bg-card);
+      border-top: 1px solid var(--white-rule);
+      padding: var(--section-gap) 0;
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    #contact .t-display { color: var(--white); margin: 14px 0 20px; }
+    #contact p { font-size: 15px; color: var(--white-soft); max-width: 44ch; }
+
+    .contact-links { display: flex; flex-direction: column; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--white-rule);
+      font-size: 15px;
+      color: var(--white-soft);
+      transition: color 0.15s;
+    }
+
+    .contact-link:hover { color: var(--lime); }
+
+    .arrow {
+      font-size: 16px;
+      opacity: 0.3;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+
+    .contact-link:hover .arrow { opacity: 1; transform: translate(3px,-3px); color: var(--lime); }
+
+    .contact-note { font-size: 12px; color: var(--white-muted); margin-top: 22px; }
+
+    @media (max-width: 800px) { .contact-inner { grid-template-columns: 1fr; gap: 48px; } }
+
+    /* ============================================
+       FOOTER — Larae style: 3-col centered links
+    ============================================ */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--white-rule);
+      padding: 32px var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left {
+      font-size: 12px;
+      color: var(--lime);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--white-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 0;
+    }
+
+    .footer-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--bg-tag);
+      border: 1px solid var(--white-rule-mid);
+      padding: 8px 18px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .footer-link:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+    .footer-link:last-child  { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; border-left: none; }
+    .footer-link:only-child  { border-radius: var(--radius-sm); }
+    .footer-link:hover { background: var(--lime); color: var(--bg); }
+
+    /* ============================================
+       ANIMATION
+    ============================================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV — matches Larae's minimal top bar -->
+  <nav>
+    <span class="nav-logo">Wisdom A.</span>
+    <div class="nav-right">
+      <a href="https://linkedin.com/in/wisdom-adade-abrefah" target="_blank" rel="noopener">
+        LinkedIn <span class="nav-arrow">↗</span>
+      </a>
+      <!-- ✏️ Replace href with your CV/resume PDF link -->
+      <a href="#contact">
+        Resume <span class="nav-arrow">↗</span>
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- HERO — Larae style: label pills + big tagline -->
+  <section id="hero">
+    <div class="hero-labels">
+      <span class="hero-label-pill">Senior UX Designer</span>
+      <span class="hero-label-pill">Content Strategist</span>
+      <span class="hero-label-pill">Based in Newcastle upon Tyne, UK</span>
+    </div>
+
+    <div class="hero-tagline">
+      <h1 class="t-hero">
+        Turning complex policy,<br/>
+        <em>legislation &amp; ambiguity</em><br/>
+        into usable, <em>scalable systems</em><br/>
+        that work for real people.
+      </h1>
+    </div>
+
+    <div class="hero-foot">
+      <p class="hero-desc">
+        5+ years delivering end-to-end UX for UK Government, B2B enterprise &amp; AI products.
+        Currently contracting via Accenture at HMRC.
+        Using AI-augmented workflows to reduce discovery timelines by 30%.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <span class="stat-num">5+</span>
+          <span class="stat-label">Years experience</span>
+        </div>
+        <div>
+          <span class="stat-num">30%</span>
+          <span class="stat-label">Faster discovery</span>
+        </div>
+        <div>
+          <span class="stat-num">120%</span>
+          <span class="stat-label">Organic traffic lift</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="t-label">About</span>
+      </div>
+      <div class="about-grid fade-up">
+
+        <!-- ✏️ Replace with: <img src="your-photo.jpg" alt="Wisdom Adade-Abrefah" style="border-radius:12px; width:100%;"> -->
+        <div class="photo-box">
+          <span class="note">Add your photo here.<br/>Replace this div<br/>with an &lt;img&gt; tag.</span>
+        </div>
+
+        <div class="about-body">
+          <span class="t-label">Who I am</span>
+          <p class="about-lead">
+            I thrive where ambiguity is high — designing at the intersection of user research, business goals, and technical feasibility.
+          </p>
+          <p>
+            I'm a UX Designer and Content Strategist with 5+ years delivering end-to-end design for complex
+            enterprise and UK Government services. I specialise in translating complex policy, legislation, and
+            early-stage business processes into clear, actionable product requirements.
+          </p>
+          <p style="margin-top:14px;">
+            I champion AI-augmented design — using Cursor, Claude, Copilot, and Agentic AI flows to accelerate
+            prototyping, streamline discovery, and reduce ambiguity. This has cut discovery and research
+            synthesis timelines by up to 30%.
+          </p>
+          <div class="pill-row">
+            <span class="pill pill--lime">Government Services (GDS)</span>
+            <span class="pill pill--lime">B2B Enterprise UX</span>
+            <span class="pill pill--lime">AI-Augmented Design</span>
+            <span class="pill">Content Strategy</span>
+            <span class="pill">Agile / Scrum</span>
+            <span class="pill">Design Systems</span>
+            <span class="pill">Accessibility (WCAG 2.2)</span>
+            <span class="pill">Agentic AI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="t-label">Selected work</span>
+      </div>
+
+      <!-- CARD GRID — Larae-style project thumbnails -->
+      <div class="work-grid">
+
+        <!-- Card 1 -->
+        <div class="work-card">
+          <div class="work-card-image">
+            <!-- ✏️ Replace with: <img src="hmrc-cover.jpg" alt="HMRC NOVA"> -->
+            <span class="img-placeholder">Add HMRC NOVA project cover image here.</span>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-meta">
+              <span>UX Designer</span>
+              <span class="dot">•</span>
+              <span>Case study</span>
+            </div>
+            <div class="work-card-title">
+              Re-platforming HMRC's vehicle import service, <em>improving task completion for thousands of UK users</em>
+            </div>
+            <div class="work-card-tags">
+              <span class="work-card-tag">Government</span>
+              <span class="work-card-tag">Content Design</span>
+              <span class="work-card-tag">GDS</span>
+              <span class="work-card-tag">Accessibility</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="work-card">
+          <div class="work-card-image">
+            <!-- ✏️ Replace with: <img src="proventeq-cover.jpg" alt="Proventeq"> -->
+            <span class="img-placeholder">Add Proventeq homepage project cover image here.</span>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-meta">
+              <span>UX Strategist</span>
+              <span class="dot">•</span>
+              <span>Case study</span>
+            </div>
+            <div class="work-card-title">
+              Rebranding a global B2B SaaS homepage, <em>growing pipeline by £170K+ in one month</em>
+            </div>
+            <div class="work-card-tags">
+              <span class="work-card-tag">B2B SaaS</span>
+              <span class="work-card-tag">Rebrand</span>
+              <span class="work-card-tag">SEO</span>
+              <span class="work-card-tag">Conversion</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="work-card">
+          <div class="work-card-image">
+            <!-- ✏️ Replace with: <img src="nhs-cover.jpg" alt="NHS Digital"> -->
+            <span class="img-placeholder">Add NHS Digital project cover image here.</span>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-meta">
+              <span>UX Designer</span>
+              <span class="dot">•</span>
+              <span>Case study</span>
+            </div>
+            <div class="work-card-title">
+              Redesigning NHS maternity information access, <em>achieving 90% user comprehension</em>
+            </div>
+            <div class="work-card-tags">
+              <span class="work-card-tag">Healthcare</span>
+              <span class="work-card-tag">Information Architecture</span>
+              <span class="work-card-tag">Accessibility</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="work-card">
+          <div class="work-card-image">
+            <!-- ✏️ Replace with: <img src="onangoplay-cover.jpg" alt="OnangoPay"> -->
+            <span class="img-placeholder">Add OnangoPay project cover image here.</span>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-meta">
+              <span>UX Writer</span>
+              <span class="dot">•</span>
+              <span>Case study</span>
+            </div>
+            <div class="work-card-title">
+              Microcopy that <em>cut support tickets by 30%</em> and boosted feature adoption by 15%
+            </div>
+            <div class="work-card-tags">
+              <span class="work-card-tag">Fintech</span>
+              <span class="work-card-tag">UX Writing</span>
+              <span class="work-card-tag">Onboarding</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 — KNUST -->
+        <div class="work-card">
+          <div class="work-card-image">
+            <!-- ✏️ Replace with: <img src="knust-cover.jpg" alt="KNUST AIM app"> -->
+            <span class="img-placeholder">Add KNUST AIM app project cover image here.</span>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-meta">
+              <span>Digital Content Designer</span>
+              <span class="dot">•</span>
+              <span>Case study</span>
+            </div>
+            <div class="work-card-title">
+              Designing KNUST's AIM app &amp; student portals, <em>driving 21% engagement lift</em>
+            </div>
+            <div class="work-card-tags">
+              <span class="work-card-tag">Education</span>
+              <span class="work-card-tag">App Design</span>
+              <span class="work-card-tag">Microcopy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 — Veriflow (coming soon) -->
+        <div class="work-card">
+          <div class="work-card-image">
+            <span class="img-placeholder">Add Veriflow project cover image here.</span>
+            <span class="coming-soon">Coming soon</span>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-meta">
+              <span>Business Analyst</span>
+              <span class="dot">•</span>
+              <span>Veriflow</span>
+            </div>
+            <div class="work-card-title">
+              Defining requirements for a complex <em>AI-powered compliance SaaS</em> product
+            </div>
+            <div class="work-card-tags">
+              <span class="work-card-tag">B2B</span>
+              <span class="work-card-tag">AI</span>
+              <span class="work-card-tag">Compliance</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /work-grid -->
+
+
+      <!-- FULL CASE STUDIES -->
+      <div class="section-header" style="margin-top:64px;">
+        <span class="section-num">02.1</span>
+        <span class="t-label">Case study detail</span>
+      </div>
+
+
+      <!-- CASE 1: HMRC -->
+      <article class="case-study fade-up">
+        <div class="case-meta">
+          <span class="case-tag">Government</span>
+          <div class="case-title-meta" style="margin-top:12px;">HMRC — NOVA Service</div>
+          <div class="case-org">HM Revenue &amp; Customs · Accenture</div>
+          <div class="case-period">Feb 2026 – Present</div>
+          <div class="tag-list">
+            <span class="tag">UX Writing</span>
+            <span class="tag">Content Design</span>
+            <span class="tag">GDS Standards</span>
+            <span class="tag">Agile Scrum</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <h3>Re-platforming a complex vehicle import notification service for HMRC</h3>
+          <h4>The problem</h4>
+          <p>HMRC's Notification of Vehicle Arrivals (NOVA) service was being re-platformed. Users must notify HMRC when bringing a vehicle into the UK — a task wrapped in tax legislation most users have no prior understanding of. Existing content mirrored legal language directly, causing comprehension failures and support escalations.</p>
+
+          <div class="mockup-frame">
+            <span style="font-size:24px; opacity:0.15;">⬚</span>
+            <span class="placeholder-text">Add annotated NOVA journey map here.<br/>Full flow with decision labels across all screens.</span>
+          </div>
+          <span class="mockup-label">User flow: NOVA vehicle notification journey · [Replace with real asset]</span>
+
+          <h4>My approach</h4>
+          <p>As sole UX writer embedded in an Agile Scrum team, I ran discovery sessions with BAs and developers to understand business rules before writing a line of content. Legislation was a design constraint — not a writing brief.</p>
+
+          <div class="annotation">
+            <strong>Decision — why plain English</strong>
+            <p>The original draft used legal phrasing verbatim. User testing showed people stopped at technical terms. I rewrote microcopy using GOV.UK tone principles, significantly reducing comprehension failures.</p>
+          </div>
+
+          <h4>Key screens in the journey</h4>
+          <div class="flow-strip">
+            <div class="flow-screen"><span>1</span><span style="font-size:9px;">Start / Eligibility</span></div>
+            <div class="flow-screen"><span>2</span><span style="font-size:9px;">Vehicle Details</span></div>
+            <div class="flow-screen"><span>3</span><span style="font-size:9px;">Import Date</span></div>
+            <div class="flow-screen"><span>4</span><span style="font-size:9px;">Tax Classification</span></div>
+            <div class="flow-screen"><span>5</span><span style="font-size:9px;">Check &amp; Submit</span></div>
+            <div class="flow-screen"><span>6</span><span style="font-size:9px;">Confirmation</span></div>
+          </div>
+          <span class="mockup-label">6-screen journey · Desktop &amp; mobile · [Replace with real screenshots]</span>
+
+          <h4>Outcome</h4>
+          <p>Content live and iterated against real user research. Improved task completion rates for vehicle arrival notifications. Cross-team knowledge sharing reduced rework and delivery timelines.</p>
+        </div>
+      </article>
+
+
+      <!-- CASE 2: PROVENTEQ -->
+      <article class="case-study fade-up">
+        <div class="case-meta">
+          <span class="case-tag">B2B SaaS</span>
+          <div class="case-title-meta" style="margin-top:12px;">Proventeq</div>
+          <div class="case-org">Senior Content Executive</div>
+          <div class="case-period">Nov 2022 – Aug 2025</div>
+          <div class="tag-list">
+            <span class="tag">UX Strategy</span>
+            <span class="tag">Rebrand</span>
+            <span class="tag">SEO</span>
+            <span class="tag">Content Lifecycle</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <h3>Rebranding a global B2B SaaS homepage — and growing pipeline by £170K+</h3>
+          <h4>The problem</h4>
+          <p>Proventeq was preparing for global market rollout. The homepage didn't communicate value to enterprise buyers — visual hierarchy was flat, the funnel leaked, and content didn't reach decision-makers.</p>
+
+          <div class="impact-row">
+            <div class="impact-stat"><span class="num">120%</span><span class="desc">Organic traffic increase</span></div>
+            <div class="impact-stat"><span class="num">£170K+</span><span class="desc">Pipeline contribution</span></div>
+            <div class="impact-stat"><span class="num">1 month</span><span class="desc">Homepage rebrand delivered</span></div>
+          </div>
+
+          <div class="mockup-frame">
+            <span style="font-size:24px; opacity:0.15;">⬚</span>
+            <span class="placeholder-text">Add before &amp; after homepage screenshots.<br/>Side-by-side at desktop width recommended.</span>
+          </div>
+          <span class="mockup-label">Homepage: before &amp; after · [Replace with real asset]</span>
+
+          <h4>My approach</h4>
+          <p>I led the content audit, UX strategy, and full homepage rebrand within one month, across sales, marketing, and product. Every piece of content was mapped to a funnel stage and tracked via GA4.</p>
+
+          <div class="annotation">
+            <strong>Content mapped to revenue</strong>
+            <p>I could attribute specific organic traffic lifts to individual content decisions. Pipeline movement was documented and reported to leadership.</p>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- CASE 3: NHS -->
+      <article class="case-study fade-up">
+        <div class="case-meta">
+          <span class="case-tag">Healthcare</span>
+          <div class="case-title-meta" style="margin-top:12px;">NHS Digital</div>
+          <div class="case-org">User Experience Designer</div>
+          <div class="case-period">Sep 2019 – Jan 2020</div>
+          <div class="tag-list">
+            <span class="tag">User Research</span>
+            <span class="tag">Information Architecture</span>
+            <span class="tag">Accessibility</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <h3>Improving access to maternity information — 90% user comprehension achieved</h3>
+          <h4>The problem</h4>
+          <p>Maternity information was structured for clinicians, not patients — hard to find, hard to understand, failing users at a high-stakes moment. Comprehension scores were below NHS thresholds.</p>
+
+          <div class="mockup-frame" style="min-height:190px;">
+            <span style="font-size:24px; opacity:0.15;">⬚</span>
+            <span class="placeholder-text">Add IA diagram or annotated before &amp; after screens.</span>
+          </div>
+          <span class="mockup-label">IA redesign · [Replace with real asset]</span>
+
+          <div class="impact-row">
+            <div class="impact-stat"><span class="num">90%</span><span class="desc">User comprehension rate</span></div>
+            <div class="impact-stat"><span class="num">↑</span><span class="desc">Accessibility &amp; usability scores</span></div>
+          </div>
+          <p>Research, data analysis, and stakeholder insights informed every decision. The redesign hit the 90% NHS comprehension benchmark alongside improved accessibility and engagement metrics.</p>
+        </div>
+      </article>
+
+
+      <!-- CASE 4: ONANGOPLAY -->
+      <article class="case-study fade-up">
+        <div class="case-meta">
+          <span class="case-tag">Fintech</span>
+          <div class="case-title-meta" style="margin-top:12px;">OnangoPay</div>
+          <div class="case-org">UX Writer · Ghana</div>
+          <div class="case-period">Oct 2018 – Aug 2019</div>
+          <div class="tag-list">
+            <span class="tag">UX Writing</span>
+            <span class="tag">Onboarding</span>
+            <span class="tag">Microcopy</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <h3>Microcopy that reduced support tickets by 30% and boosted feature adoption by 15%</h3>
+          <h4>The problem</h4>
+          <p>A payments product with regulatory constraints was generating high support volumes. Users couldn't understand error states or complete onboarding. The logic was clear to engineers; not to users.</p>
+
+          <div class="impact-row">
+            <div class="impact-stat"><span class="num">−30%</span><span class="desc">Support ticket reduction</span></div>
+            <div class="impact-stat"><span class="num">+15%</span><span class="desc">Feature adoption increase</span></div>
+          </div>
+
+          <div class="mockup-frame" style="min-height:180px;">
+            <span style="font-size:24px; opacity:0.15;">⬚</span>
+            <span class="placeholder-text">Add onboarding flow screens.<br/>Annotate before &amp; after error state microcopy.</span>
+          </div>
+          <span class="mockup-label">Onboarding &amp; error states · [Replace with real asset]</span>
+
+          <h4>Approach</h4>
+          <p>I translated complex system logic and regulatory requirements into clear, human-readable content across onboarding, payments, and error states — working directly with product and engineering.</p>
+        </div>
+      </article>
+
+
+      <!-- CASE 5: KNUST -->
+      <article class="case-study fade-up">
+        <div class="case-meta">
+          <span class="case-tag">Education</span>
+          <div class="case-title-meta" style="margin-top:12px;">KNUST</div>
+          <div class="case-org">Digital Content Designer · Ghana</div>
+          <div class="case-period">Sep 2017 – Sep 2018</div>
+          <div class="tag-list">
+            <span class="tag">UX Microcopy</span>
+            <span class="tag">App Design</span>
+            <span class="tag">Onboarding</span>
+          </div>
+        </div>
+        <div class="case-body">
+          <h3>Designing KNUST's AIM app and student-facing portals — 21% engagement increase</h3>
+          <h4>The problem</h4>
+          <p>KNUST's student-facing digital systems were hard to navigate and poorly guided. Students struggled with key academic tasks, leading to low engagement and high drop-off across admissions and onboarding journeys.</p>
+
+          <div class="mockup-frame" style="min-height:190px;">
+            <span style="font-size:24px; opacity:0.15;">⬚</span>
+            <span class="placeholder-text">Add AIM app or portal screens.<br/>Show onboarding flow or before/after navigation.</span>
+          </div>
+          <span class="mockup-label">AIM app &amp; portal redesign · [Replace with real asset]</span>
+
+          <h4>What I did</h4>
+          <p>I designed and iterated UX microcopy for the Academic Information Manager (AIM) app, improving clarity, navigation, and usability. Structured content for Admissions and App Portals guided users step by step.</p>
+
+          <div class="annotation">
+            <strong>Structure before aesthetics</strong>
+            <p>Clarifying navigation labels and contextual onboarding copy meant users needed fewer prompts to complete tasks independently.</p>
+          </div>
+
+          <div class="impact-row">
+            <div class="impact-stat"><span class="num">+21%</span><span class="desc">Engagement increase</span></div>
+            <div class="impact-stat"><span class="num">↑</span><span class="desc">Task completion across portals</span></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="t-label">Skills &amp; tools</span>
+      </div>
+      <div class="skills-layout fade-up">
+        <div class="skills-intro">
+          <h2>Broad skills.<br/>Deep craft.</h2>
+          <p>Across the full UX lifecycle — from discovery and research through to content design, prototyping, and measurement.</p>
+        </div>
+        <div class="skills-groups">
+          <div>
+            <div class="skill-group-label">Design &amp; UX</div>
+            <div class="skill-chips">
+              <span class="skill-chip skill-chip--featured">End-to-end UX Design</span>
+              <span class="skill-chip skill-chip--featured">Content Design</span>
+              <span class="skill-chip skill-chip--featured">UX Writing</span>
+              <span class="skill-chip">User Research</span>
+              <span class="skill-chip">Journey Mapping</span>
+              <span class="skill-chip">Rapid Prototyping</span>
+              <span class="skill-chip">Design Systems</span>
+              <span class="skill-chip">Information Architecture</span>
+              <span class="skill-chip">User-Centric AI Design</span>
+              <span class="skill-chip">Conversion-Driven Design</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">Tooling</div>
+            <div class="skill-chips">
+              <span class="skill-chip skill-chip--featured">Figma</span>
+              <span class="skill-chip skill-chip--featured">Cursor</span>
+              <span class="skill-chip skill-chip--featured">Claude / Copilot</span>
+              <span class="skill-chip">Miro / Mural</span>
+              <span class="skill-chip">Jira / Confluence</span>
+              <span class="skill-chip">GA4</span>
+              <span class="skill-chip">GitHub</span>
+              <span class="skill-chip">SharePoint</span>
+              <span class="skill-chip">Adobe CC</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">Frameworks &amp; standards</div>
+            <div class="skill-chips">
+              <span class="skill-chip skill-chip--featured">GOV.UK Design System (GDS)</span>
+              <span class="skill-chip skill-chip--featured">WCAG 2.2</span>
+              <span class="skill-chip">Agile / Scrum</span>
+              <span class="skill-chip">Design Thinking</span>
+              <span class="skill-chip">HTML / Markdown</span>
+              <span class="skill-chip">SEO</span>
+              <span class="skill-chip">Agentic AI</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-group-label">Certifications</div>
+            <div class="skill-chips">
+              <span class="skill-chip">Reinvention with Agentic AI (2026)</span>
+              <span class="skill-chip">Designing with WCAG 2.2 (2025)</span>
+              <span class="skill-chip">MInstLM — Institute of Leadership &amp; Management (2022)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="t-label">Experience</span>
+      </div>
+      <h2 class="t-display fade-up" style="max-width:20ch; margin-bottom:0;">
+        5+ years across government, fintech, healthcare &amp; SaaS.
+      </h2>
+
+      <div class="timeline-list fade-up">
+
+        <div class="timeline-item">
+          <div class="timeline-period">Feb 2026 – Present</div>
+          <div class="timeline-role">User Experience Senior Analyst</div>
+          <div class="timeline-company">HM Revenue &amp; Customs · Accenture Contract</div>
+          <ul class="timeline-points">
+            <li>Sole UX writer re-platforming HMRC's NOVA service in an Agile Scrum team</li>
+            <li>Translating complex tax legislation into clear GOV.UK content and microcopy</li>
+            <li>Applying GDS Design System and HMRC style guidelines across journeys</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Aug 2025 – Jan 2026</div>
+          <div class="timeline-role">Business Analyst (Contract)</div>
+          <div class="timeline-company">Veriflow · UK</div>
+          <ul class="timeline-points">
+            <li>Defined requirements for an AI-powered compliance SaaS product</li>
+            <li>Mapped end-to-end processes, user journeys, and product logic</li>
+            <li>Managed Jira &amp; Confluence across Agile Scrum sprints</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Nov 2022 – Aug 2025</div>
+          <div class="timeline-role">Senior Content Executive</div>
+          <div class="timeline-company">Proventeq Ltd · UK</div>
+          <ul class="timeline-points">
+            <li>Homepage rebrand and full content audit delivered in one month</li>
+            <li>120% organic traffic increase; £170K+ pipeline contribution</li>
+            <li>Owned content lifecycle with SEO, analytics, and user research governance</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Jan 2021 – Oct 2022</div>
+          <div class="timeline-role">Website Optimisation Specialist</div>
+          <div class="timeline-company">HostHelp · UK</div>
+          <ul class="timeline-points">
+            <li>Led end-to-end UX and content strategy for a scaling business</li>
+            <li>25% website performance improvement; 20% engagement lift</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Sep 2019 – Jan 2020</div>
+          <div class="timeline-role">User Experience Designer</div>
+          <div class="timeline-company">NHS Digital · UK</div>
+          <ul class="timeline-points">
+            <li>Redesigned maternity information service — 90% user comprehension achieved</li>
+            <li>Applied research and data to improve IA, accessibility, and usability</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Oct 2018 – Aug 2019</div>
+          <div class="timeline-role">UX Writer</div>
+          <div class="timeline-company">OnangoPay · Ghana</div>
+          <ul class="timeline-points">
+            <li>Reduced support tickets by 30% through evidence-based microcopy</li>
+            <li>+15% feature adoption; improved onboarding completion rates</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">Sep 2017 – Sep 2018</div>
+          <div class="timeline-role">Digital Content Designer</div>
+          <div class="timeline-company">KNUST · Ghana</div>
+          <ul class="timeline-points">
+            <li>Designed UX microcopy for the Academic Information Manager (AIM) app</li>
+            <li>+21% engagement increase across student-facing academic portals</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-period">2021</div>
+          <div class="timeline-role">UX Researcher (Project)</div>
+          <div class="timeline-company">Scotland Railway · UK</div>
+          <ul class="timeline-points">
+            <li>Led qualitative research for an integrated marketing campaign</li>
+            <li>Developed personas and journey maps to inform customer retention strategy</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Education -->
+      <div style="margin-top:72px;" class="fade-up">
+        <span class="t-label">Education</span>
+        <div style="margin-top:20px;">
+          <div class="edu-row">
+            <div><div class="edu-degree">M.A. Strategic Marketing</div><div class="edu-school">University of Greenwich, UK</div></div>
+            <span class="edu-year">2021</span>
+          </div>
+          <div class="edu-row">
+            <div><div class="edu-degree">M.Sc. Service Design &amp; Innovation</div><div class="edu-school">Loughborough University, UK</div></div>
+            <span class="edu-year">2020</span>
+          </div>
+          <div class="edu-row">
+            <div><div class="edu-degree">B.A. Communication Design</div><div class="edu-school">KNUST, Ghana</div></div>
+            <span class="edu-year">2017</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="t-label">Contact</span>
+      </div>
+      <div class="contact-inner fade-up">
+        <div>
+          <span class="t-label">Let's talk</span>
+          <h2 class="t-display" style="margin:14px 0 20px;">
+            Open to senior<br/>&amp; contract roles.
+          </h2>
+          <p>
+            Available for senior UX design, content strategy, and product design roles — particularly
+            in government, B2B enterprise, and AI/automation. Based in the UK, open to remote &amp; hybrid.
+          </p>
+        </div>
+        <div>
+          <div class="contact-links">
+            <!-- ✏️ Update LinkedIn URL with your real profile -->
+            <a href="mailto:wisdomabrefah@gmail.com" class="contact-link">
+              <span>wisdomabrefah@gmail.com</span>
+              <span class="arrow">↗</span>
+            </a>
+            <a href="https://linkedin.com/in/wisdom-adade-abrefah" target="_blank" rel="noopener" class="contact-link">
+              <span>LinkedIn</span>
+              <span class="arrow">↗</span>
+            </a>
+            <a href="tel:+447845290448" class="contact-link">
+              <span>+44 (0) 7845 290 448</span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+          <p class="contact-note">Based in Newcastle upon Tyne, UK · Open to remote &amp; hybrid</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER — matches Larae's 3-button footer row -->
+  <footer>
+    <div class="footer-left">Made with intention &amp; craft ✦</div>
+    <div class="footer-copy">© 2026 Wisdom Adade-Abrefah</div>
+    <div class="footer-links">
+      <!-- ✏️ Replace href with your CV PDF link -->
+      <a href="#contact" class="footer-link">Resume ↗</a>
+      <a href="https://linkedin.com/in/wisdom-adade-abrefah" target="_blank" rel="noopener" class="footer-link">LinkedIn ↗</a>
+      <a href="mailto:wisdomabrefah@gmail.com" class="footer-link">wisdomabrefah@gmail.com ✉</a>
+    </div>
+  </footer>
+
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  </script>
+
+</body>
+</html>
